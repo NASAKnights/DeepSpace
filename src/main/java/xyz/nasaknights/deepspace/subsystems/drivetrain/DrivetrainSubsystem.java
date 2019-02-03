@@ -2,6 +2,7 @@ package xyz.nasaknights.deepspace.subsystems.drivetrain;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.SpeedController;
+import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 
@@ -11,6 +12,8 @@ public class DrivetrainSubsystem extends Subsystem
     private SpeedController middle;
     private DoubleSolenoid left;
     private DoubleSolenoid right;
+
+    private Command activeCommand = null;
 
     private boolean highGear = false;
 
@@ -52,5 +55,14 @@ public class DrivetrainSubsystem extends Subsystem
     public boolean isInHighGear()
     {
         return this.highGear;
+    }
+
+    public Command getActiveCommand() {
+        return activeCommand;
+    }
+
+    public void setActiveCommand(Command cmd) {
+        activeCommand.cancel();
+        activeCommand = cmd;
     }
 }

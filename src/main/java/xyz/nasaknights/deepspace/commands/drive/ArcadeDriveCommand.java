@@ -22,8 +22,9 @@ public class ArcadeDriveCommand extends Command
     protected void execute()
     {
         Joystick driver = Robot.getOI().getDriver();
+        double lateralPower = driver.getRawAxis(ControllerMappings.PS4Controller.LEFT_X_AXIS.getID());
 
         Robot.getDrivetrain().getDrivetrain().arcadeDrive(driver.getRawAxis(ControllerMappings.PS4Controller.LEFT_Y_AXIS.getID()), driver.getRawAxis(ControllerMappings.PS4Controller.RIGHT_X_AXIS.getID()));
-        Robot.getDrivetrain().getMiddle().set(driver.getRawAxis(ControllerMappings.PS4Controller.LEFT_X_AXIS.getID()));
+        Robot.getDrivetrain().getMiddle().set(lateralPower > .075 || lateralPower < -.075 ? lateralPower : 0);
     }
 }
