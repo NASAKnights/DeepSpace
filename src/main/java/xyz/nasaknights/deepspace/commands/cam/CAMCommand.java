@@ -1,5 +1,6 @@
 package xyz.nasaknights.deepspace.commands.cam;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.PIDCommand;
 import xyz.nasaknights.deepspace.Robot;
 
@@ -18,6 +19,11 @@ public class CAMCommand extends PIDCommand
     @Override
     protected void initialize()
     {
+        if (DriverStation.getInstance().getMatchTime() > 30.0 || DriverStation.getInstance().isAutonomous())
+        {
+            return;
+        }
+
         this.getPIDController().enable();
     }
 
@@ -36,7 +42,7 @@ public class CAMCommand extends PIDCommand
     @Override
     protected boolean isFinished()
     {
-        return this.getPIDController().onTarget();
+        return (DriverStation.getInstance().getMatchTime() > 30.0 || DriverStation.getInstance().isAutonomous()) || this.getPIDController().onTarget();
     }
 
     @Override

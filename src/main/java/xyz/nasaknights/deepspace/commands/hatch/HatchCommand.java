@@ -5,12 +5,13 @@ import xyz.nasaknights.deepspace.Robot;
 
 public class HatchCommand extends Command
 {
-    private boolean eject;
+    private boolean extend;
     private boolean finished = false;
 
-    public HatchCommand(boolean eject)
+    public HatchCommand(boolean extend)
     {
-        this.eject = eject;
+        requires(Robot.getHatch());
+        this.extend = extend;
     }
 
     @Override
@@ -22,6 +23,6 @@ public class HatchCommand extends Command
     @Override
     protected void execute()
     {
-        Robot.getHatch().setState(eject);
+        Robot.getHatch().setState(extend);
     }
 }
